@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Sejun',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
       ),
       home: MainPage(),
+      defaultTransition: Transition.fadeIn,
       scrollBehavior: SejunScrollBehavior()
     );
   }
