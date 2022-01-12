@@ -2,11 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
-class MainPageController extends GetxController {
+class MainPageController extends GetxController with GetTickerProviderStateMixin{
   final _isPersonalExpanded = false.obs;
-  final _contentScrollViewController = ScrollController(keepScrollOffset: false );
+  final _contentScrollViewController =
+      ScrollController(keepScrollOffset: false);
 
   final _isContentScrollViewTop = true.obs;
+
+  final _introductionIndex = 0.obs;
+
+  setIntroductionIndex(int index) {
+    assert(index >= 0 && index <= 3);
+
+    _introductionIndex.value = index;
+  }
+
+  getIntroductionIndex() => _introductionIndex.value;
 
   setIsPersonalExpanded(bool bool) {
     _isPersonalExpanded.value = bool;
@@ -17,6 +28,14 @@ class MainPageController extends GetxController {
   getContentScrollViewController() => _contentScrollViewController;
 
   getIsContentScrollViewTop() => _isContentScrollViewTop.value;
+
+  late AnimationController _introductionAnimationController;
+  late Animation _introductionAnimation;
+
+
+  initAnimationResources(){
+    _introductionAnimationController = AnimationController(vsync: this);
+  }
 
   @override
   void onInit() {
@@ -30,8 +49,7 @@ class MainPageController extends GetxController {
           _contentScrollViewController.position.userScrollDirection ==
               ScrollDirection.forward) {
         _isContentScrollViewTop.value = true;
-      }
-      else {
+      } else {
         _isContentScrollViewTop.value = false;
       }
     });
@@ -41,6 +59,7 @@ class MainPageController extends GetxController {
   @override
   void dispose() {
     _contentScrollViewController.dispose();
+    _introductionAnimationController.dispose();
     super.dispose();
   }
 }
