@@ -61,7 +61,7 @@ class _SejunProjectCardState extends State<SejunProjectCard>
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(24)),
                             gradient: RadialGradient(
-                                colors: const [Colors.blue, Colors.white],
+                                colors: const [Colors.indigoAccent, Colors.white],
                                 radius: _animationController.value,
                                 center: Alignment.bottomLeft)),
                         height: 500,

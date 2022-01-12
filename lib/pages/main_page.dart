@@ -188,7 +188,7 @@ class MainPage extends GetView<MainPageController> {
                                         alignment: Alignment.center,
                                         height: 40,
                                         child: Text(
-                                          'Button1',
+                                          'Patience',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: controller
@@ -211,7 +211,7 @@ class MainPage extends GetView<MainPageController> {
                                         alignment: Alignment.center,
                                         height: 40,
                                         child: Text(
-                                          'Button1',
+                                          'Effort',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: controller
@@ -234,7 +234,7 @@ class MainPage extends GetView<MainPageController> {
                                         alignment: Alignment.center,
                                         height: 40,
                                         child: Text(
-                                          'Button1',
+                                          'Open Minded',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: controller
@@ -258,11 +258,21 @@ class MainPage extends GetView<MainPageController> {
                               index: controller.getIntroductionIndex(),
                               children: [
                                 IndexedStackChild(
-                                    child: SejunIntroductionCard()),
+                                    child: SejunIntroductionCard(
+                                  title: 'Patience',
+                                  content: '어려운 문제상황에서도\n포기하지않고 끝까지 해냅니다 ',
+                                )),
                                 IndexedStackChild(
-                                    child: SejunIntroductionCard()),
+                                    child: SejunIntroductionCard(
+                                  title: 'Effort',
+                                  content: '어제보다 더 나은 개발자가\n되기위해 꾸준히 노력합니다',
+                                )),
                                 IndexedStackChild(
-                                    child: SejunIntroductionCard()),
+                                    child: SejunIntroductionCard(
+                                  title: 'Open minded',
+                                  content:
+                                      '늘 열린 마음으로 좋은것들을 받아들이고\n따끔한 충고나 조언에 감사합니다',
+                                )),
                               ],
                             ),
                           ),
@@ -360,10 +370,10 @@ class MainPage extends GetView<MainPageController> {
               width: Get.width,
               height: 6,
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [Colors.grey.withOpacity(0.5), Colors.grey.withOpacity(0.0)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter)),
+                  gradient: LinearGradient(colors: [
+                Colors.grey.withOpacity(0.5),
+                Colors.grey.withOpacity(0.0)
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
             )
           : const SizedBox(
               height: 2,

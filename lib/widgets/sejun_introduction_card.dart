@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SejunIntroductionCard extends StatefulWidget {
-  const SejunIntroductionCard({Key? key}) : super(key: key);
+  const SejunIntroductionCard({Key? key, required this.title, required this.content})
+      : super(key: key);
+
+  final String title;
+  final String content;
 
   @override
   _SejunIntroductionCardState createState() => _SejunIntroductionCardState();
@@ -47,7 +51,7 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      builder: (context, widget) {
+      builder: (context, child) {
         return Opacity(
           opacity: _opacityAnimation.value,
           child: Container(
@@ -66,7 +70,7 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
                   Column(
                     children: [
                       Text(
-                        'Title',
+                        widget.title,
                         style: TextStyle(
                             fontSize: 66, fontWeight: FontWeight.bold),
                       ),
@@ -74,9 +78,9 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
                         height: 80,
                       ),
                       Text(
-                        'Contentawefiowaehfiowaheiofhiowaefhioawehfio',
+                        widget.content,
                         style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w500),
+                            fontSize: 24, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
                       ),
                     ],
                   ),
