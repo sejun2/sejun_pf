@@ -2,12 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
-class MainPageController extends GetxController with GetTickerProviderStateMixin{
+class MainPageController extends GetxController
+    with GetTickerProviderStateMixin {
   final _isPersonalExpanded = false.obs;
+
+  setIsPersonalExpanded(bool bool) {
+    _isPersonalExpanded.value = bool;
+  }
+
+  getIsPersonalExpanded() => _isPersonalExpanded.value;
+
   final _contentScrollViewController =
       ScrollController(keepScrollOffset: false);
 
+  getContentScrollViewController() => _contentScrollViewController;
+
   final _isContentScrollViewTop = true.obs;
+
+  getIsContentScrollViewTop() => _isContentScrollViewTop.value;
 
   final _introductionIndex = 0.obs;
 
@@ -19,21 +31,10 @@ class MainPageController extends GetxController with GetTickerProviderStateMixin
 
   getIntroductionIndex() => _introductionIndex.value;
 
-  setIsPersonalExpanded(bool bool) {
-    _isPersonalExpanded.value = bool;
-  }
-
-  getIsPersonalExpanded() => _isPersonalExpanded.value;
-
-  getContentScrollViewController() => _contentScrollViewController;
-
-  getIsContentScrollViewTop() => _isContentScrollViewTop.value;
-
   late AnimationController _introductionAnimationController;
   late Animation _introductionAnimation;
 
-
-  initAnimationResources(){
+  initAnimationResources() {
     _introductionAnimationController = AnimationController(vsync: this);
   }
 

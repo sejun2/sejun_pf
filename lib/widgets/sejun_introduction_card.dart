@@ -26,6 +26,12 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     initAnimationResources();
     Future.delayed(
@@ -40,28 +46,38 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
 
   @override
   Widget build(BuildContext context) {
-
     return AnimatedBuilder(
       builder: (context, widget) {
-
         return Opacity(
           opacity: _opacityAnimation.value,
           child: Container(
-            transform: Matrix4.translationValues(0, _transformAnimation.value, 0),
-            width: 800,
-
+            transform:
+                Matrix4.translationValues(0, _transformAnimation.value, 0),
             child: IntrinsicHeight(
               child: Wrap(
                 alignment: WrapAlignment.spaceEvenly,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   Image.network(
-                      'https://storage.googleapis.com/cms-storage-bucket/a667e994fc2f3e85de36.png', width: 600, height: 600,),
+                    'https://storage.googleapis.com/cms-storage-bucket/a667e994fc2f3e85de36.png',
+                    width: 600,
+                    height: 600,
+                  ),
                   Column(
                     children: [
-                      Text('Title', style: TextStyle(fontSize: 66, fontWeight: FontWeight.bold),),
-                      SizedBox(height: 80,),
-                      Text('Contentawefiowaehfiowaheiofhiowaefhioawehfio', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),),
+                      Text(
+                        'Title',
+                        style: TextStyle(
+                            fontSize: 66, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 80,
+                      ),
+                      Text(
+                        'Contentawefiowaehfiowaheiofhiowaefhioawehfio',
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.w500),
+                      ),
                     ],
                   ),
                 ],

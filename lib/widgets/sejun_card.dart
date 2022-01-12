@@ -31,9 +31,11 @@ class _SejunCardState extends State<SejunCard> {
             elevation: 4,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(32))),
+
             child: SizedBox(
               width: 300,
               height: 400,
+
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

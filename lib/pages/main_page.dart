@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -26,52 +25,15 @@ class MainPage extends GetView<MainPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Container(
-        width: 160,
-        height: 60,
-        decoration: ShapeDecoration(
-            shape: const StadiumBorder(), color: Colors.grey.withOpacity(0.2)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            InkWell(
-              onTap: () async {
-                if (await canLaunch('https://https://github.com/sejun2')) {
-                  await launch('https://github.com/sejun2');
-                }
-              },
-              child: Image.asset(
-                'assets/image/github_64px.png',
-                width: 45,
-                height: 45,
-              ),
-            ),
-            Tooltip(
-              message: 'qpfjf56@gmail.com',
-              padding: EdgeInsets.all(12),
-              textStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white),
-              child: InkWell(
-                onTap: () async {
-                  print('gmail clicked...');
-                  if (await canLaunch(
-                      Uri(scheme: 'Sejun', path: 'qpfjf56@gmail.com')
-                          .toString())) {
-                    await launch(Uri(scheme: 'Sejun', path: 'qpfjf56@gmail.com')
-                        .toString());
-                  }
-                },
-                child: Image.asset(
-                  'assets/image/gmail.png',
-                  width: 45,
-                  height: 45,
-                ),
-              ),
-            ),
-          ],
-        ),
+      floatingActionButton: FutureBuilder(
+        future: buildFloatingActionButton(),
+        builder: (ctx, snapshot) {
+          if (snapshot.hasData) {
+            return snapshot.data as Container;
+          } else {
+            return Container();
+          }
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: SafeArea(
@@ -79,10 +41,57 @@ class MainPage extends GetView<MainPageController> {
           children: [
             buildAppBar(context),
             buildChips(context),
-            buildGradientDivider(context),
             buildContent(context),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<Container> buildFloatingActionButton() async {
+    return Container(
+      width: 160,
+      height: 60,
+      decoration: ShapeDecoration(
+          shape: const StadiumBorder(), color: Colors.grey.withOpacity(0.2)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          InkWell(
+            onTap: () async {
+              if (await canLaunch('https://https://github.com/sejun2')) {
+                await launch('https://github.com/sejun2');
+              }
+            },
+            child: Image.asset(
+              'assets/image/github_64px.png',
+              width: 45,
+              height: 45,
+            ),
+          ),
+          Tooltip(
+            message: 'qpfjf56@gmail.com',
+            padding: EdgeInsets.all(12),
+            textStyle: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+            child: InkWell(
+              onTap: () async {
+                print('gmail clicked...');
+                if (await canLaunch(
+                    Uri(scheme: 'Sejun', path: 'qpfjf56@gmail.com')
+                        .toString())) {
+                  await launch(Uri(scheme: 'Sejun', path: 'qpfjf56@gmail.com')
+                      .toString());
+                }
+              },
+              child: Image.asset(
+                'assets/image/gmail.png',
+                width: 45,
+                height: 45,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -107,206 +116,212 @@ class MainPage extends GetView<MainPageController> {
   buildContent(BuildContext context) {
     return Expanded(
       child: LayoutBuilder(builder: (context, constraints) {
-        return Container(
-          width: constraints.maxWidth,
-          child: SingleChildScrollView(
-            controller: controller.getContentScrollViewController(),
-            padding:
-                const EdgeInsets.only(left: 30, right: 30, top: 8, bottom: 8),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(44),
+        return Stack(children: [
+          Container(
+            width: constraints.maxWidth,
+            child: SingleChildScrollView(
+              controller: controller.getContentScrollViewController(),
+              padding:
+                  const EdgeInsets.only(left: 30, right: 30, top: 8, bottom: 8),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(44),
+                      ),
+                      color: Colors.white,
                     ),
-                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 24,
+                    ),
+                    width: constraints.maxWidth,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Align(
+                            child: Text(
+                              '소개',
+                              style: GoogleFonts.ibmPlexSansKr(
+                                  fontSize: 66,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            alignment: Alignment.centerLeft,
+                          ),
+                          SizedBox(
+                            height: 60,
+                          ),
+                          Container(
+                            width: 450,
+                            height: 40,
+                            decoration: ShapeDecoration(
+                                shape: StadiumBorder(),
+                                color: Colors.grey.withOpacity(0.1)),
+                            child: Obx(
+                              () => Stack(children: [
+                                AnimatedContainer(
+                                  curve: Curves.fastOutSlowIn,
+                                  alignment: Alignment.center,
+                                  height: 40,
+                                  width: 450 / 3,
+                                  decoration: ShapeDecoration(
+                                      shape: StadiumBorder(),
+                                      color: Colors.indigoAccent),
+                                  duration: Duration(milliseconds: 300),
+                                  transform: Matrix4.translationValues(
+                                      (controller.getIntroductionIndex()) *
+                                          450 /
+                                          3,
+                                      0,
+                                      0),
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child: InkWell(
+                                      onTap: () {
+                                        controller.setIntroductionIndex(0);
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: 40,
+                                        child: Text(
+                                          'Button1',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color: controller
+                                                          .getIntroductionIndex() ==
+                                                      0
+                                                  ? Colors.white
+                                                  : Colors.indigoAccent),
+                                        ),
+                                        decoration: ShapeDecoration(
+                                            shape: StadiumBorder(),
+                                            color: Colors.transparent),
+                                      ),
+                                    )),
+                                    Expanded(
+                                        child: InkWell(
+                                      onTap: () {
+                                        controller.setIntroductionIndex(1);
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: 40,
+                                        child: Text(
+                                          'Button1',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color: controller
+                                                          .getIntroductionIndex() ==
+                                                      1
+                                                  ? Colors.white
+                                                  : Colors.indigoAccent),
+                                        ),
+                                        decoration: ShapeDecoration(
+                                            shape: StadiumBorder(),
+                                            color: Colors.transparent),
+                                      ),
+                                    )),
+                                    Expanded(
+                                        child: InkWell(
+                                      onTap: () {
+                                        controller.setIntroductionIndex(2);
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: 40,
+                                        child: Text(
+                                          'Button1',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color: controller
+                                                          .getIntroductionIndex() ==
+                                                      2
+                                                  ? Colors.white
+                                                  : Colors.indigoAccent),
+                                        ),
+                                        decoration: ShapeDecoration(
+                                            shape: StadiumBorder(),
+                                            color: Colors.transparent),
+                                      ),
+                                    )),
+                                  ],
+                                ),
+                              ]),
+                            ),
+                          ),
+                          Obx(
+                            () => ProsteIndexedStack(
+                              index: controller.getIntroductionIndex(),
+                              children: [
+                                IndexedStackChild(
+                                    child: SejunIntroductionCard()),
+                                IndexedStackChild(
+                                    child: SejunIntroductionCard()),
+                                IndexedStackChild(
+                                    child: SejunIntroductionCard()),
+                              ],
+                            ),
+                          ),
+                        ]),
                   ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 24,
+                  const SizedBox(
+                    height: 150,
                   ),
-                  width: constraints.maxWidth,
-                  child: Column(
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(44),
+                      ),
+                      color: Colors.white,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 24,
+                    ),
+                    width: constraints.maxWidth,
+                    height: 800,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Align(
-                          child: Text(
-                            '소개',
-                            style: GoogleFonts.ibmPlexSansKr(
-                                fontSize: 66,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          alignment: Alignment.centerLeft,
+                        Text(
+                          '프로젝트',
+                          style: GoogleFonts.ibmPlexSansKr(
+                              fontSize: 66,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
-                          height: 60,
-                        ),
-                        Container(
-                          width: 450,
-                          height: 40,
-                          decoration: ShapeDecoration(
-                              shape: StadiumBorder(),
-                              color: Colors.grey.withOpacity(0.1)),
-                          child: Obx(
-                            () => Stack(children: [
-                              AnimatedContainer(
-                                curve: Curves.fastOutSlowIn,
-                                alignment: Alignment.center,
-                                height: 40,
-                                width: 450 / 3,
-                                decoration: ShapeDecoration(
-                                    shape: StadiumBorder(),
-                                    color: Colors.indigoAccent),
-                                duration: Duration(milliseconds: 300),
-                                transform: Matrix4.translationValues(
-                                    (controller.getIntroductionIndex()) *
-                                        450 /
-                                        3,
-                                    0,
-                                    0),
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: InkWell(
-                                    onTap: () {
-                                      controller.setIntroductionIndex(0);
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: 40,
-                                      child: Text(
-                                        'Button1',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: controller
-                                                        .getIntroductionIndex() ==
-                                                    0
-                                                ? Colors.white
-                                                : Colors.indigoAccent),
-                                      ),
-                                      decoration: ShapeDecoration(
-                                          shape: StadiumBorder(),
-                                          color: Colors.transparent),
-                                    ),
-                                  )),
-                                  Expanded(
-                                      child: InkWell(
-                                    onTap: () {
-                                      controller.setIntroductionIndex(1);
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: 40,
-                                      child: Text(
-                                        'Button1',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: controller
-                                                        .getIntroductionIndex() ==
-                                                    1
-                                                ? Colors.white
-                                                : Colors.indigoAccent),
-                                      ),
-                                      decoration: ShapeDecoration(
-                                          shape: StadiumBorder(),
-                                          color: Colors.transparent),
-                                    ),
-                                  )),
-                                  Expanded(
-                                      child: InkWell(
-                                    onTap: () {
-                                      controller.setIntroductionIndex(2);
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: 40,
-                                      child: Text(
-                                        'Button1',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: controller
-                                                        .getIntroductionIndex() ==
-                                                    2
-                                                ? Colors.white
-                                                : Colors.indigoAccent),
-                                      ),
-                                      decoration: ShapeDecoration(
-                                          shape: StadiumBorder(),
-                                          color: Colors.transparent),
-                                    ),
-                                  )),
-                                ],
-                              ),
-                            ]),
-                          ),
-                        ),
-                        Obx(
-                          () => ProsteIndexedStack(
-                            index: controller.getIntroductionIndex(),
+                          width: constraints.maxWidth,
+                          height: 600,
+                          child: ListView(
+                            itemExtent: 600,
+                            padding: EdgeInsets.only(left: 40, right: 40),
+                            scrollDirection: Axis.horizontal,
                             children: [
-                              IndexedStackChild(child: SejunIntroductionCard()),
-                              IndexedStackChild(child: SejunIntroductionCard()),
-                              IndexedStackChild(child: SejunIntroductionCard()),
+                              SejunProjectCard(
+                                title: '당신의 쉐푸',
+                              ),
+                              SejunProjectCard(
+                                title: 'Flutter 외주 프로젝트',
+                              ),
+                              SejunProjectCard(title: 'Tflite 프로젝트'),
                             ],
                           ),
                         ),
-                      ]),
-                ),
-                const SizedBox(
-                  height: 150,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(44),
+                      ],
                     ),
-                    color: Colors.white,
                   ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 24,
-                  ),
-                  width: constraints.maxWidth,
-                  height: 800,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        '프로젝트',
-                        style: GoogleFonts.ibmPlexSansKr(
-                            fontSize: 66,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        width: constraints.maxWidth,
-                        height: 600,
-                        child: ListView(
-                          itemExtent: 600,
-                          padding: EdgeInsets.only(left: 40, right: 40),
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            SejunProjectCard(
-                              title: '당신의 쉐푸',
-                            ),
-                            SejunProjectCard(
-                              title: 'Flutter 외주 프로젝트',
-                            ),
-                            SejunProjectCard(title: 'Tflite 프로젝트'),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        );
+          buildGradientDivider(context),
+        ]);
       }),
     );
   }
@@ -315,7 +330,7 @@ class MainPage extends GetView<MainPageController> {
     return AppBar(
       toolbarHeight: _appBarHeight,
       backgroundColor: Colors.white,
-      elevation: 10,
+      elevation: 0,
       centerTitle: true,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -343,8 +358,12 @@ class MainPage extends GetView<MainPageController> {
       () => controller.getIsContentScrollViewTop() == false
           ? Container(
               width: Get.width,
-              height: 2,
-              color: Colors.black.withOpacity(0.1),
+              height: 6,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Colors.grey.withOpacity(0.5), Colors.grey.withOpacity(0.0)],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter)),
             )
           : const SizedBox(
               height: 2,
