@@ -361,15 +361,19 @@ class MainPage extends GetView<MainPageController> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Sejun portfolio',
-              style: GoogleFonts.caveat(
-                  letterSpacing: 36,
-                  fontSize: 40,
-                  color: Colors.black.withOpacity(0.7))),
-        ],
+      title: LayoutBuilder(
+        builder: (context, constraints) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Sejun\'s portfolio',
+                  style: GoogleFonts.caveat(
+                      letterSpacing: 10,
+                      fontSize: 40,
+                      color: Colors.black.withOpacity(0.7))),
+            ],
+          );
+        }
       ),
     );
   }
