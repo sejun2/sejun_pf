@@ -20,12 +20,12 @@ class MainPage extends GetView<MainPageController> {
 
   @override
   StatelessElement createElement() {
-    Get.lazyPut(() => MainPageController());
     return super.createElement();
   }
 
   @override
   Widget build(BuildContext context) {
+    Get.put(MainPageController());
     return Scaffold(
       floatingActionButton: FutureBuilder(
         future: buildFloatingActionButton(),
@@ -190,6 +190,7 @@ class MainPage extends GetView<MainPageController> {
                                           child: InkWell(
                                         onTap: () {
                                           controller.setIntroductionIndex(0);
+                                          controller.cardAnimationController.forward(from: 0);
                                         },
                                         child: Container(
                                           alignment: Alignment.center,
@@ -213,6 +214,7 @@ class MainPage extends GetView<MainPageController> {
                                           child: InkWell(
                                         onTap: () {
                                           controller.setIntroductionIndex(1);
+                                          controller.cardAnimationController.forward(from: 0);
                                         },
                                         child: Container(
                                           alignment: Alignment.center,
@@ -236,6 +238,7 @@ class MainPage extends GetView<MainPageController> {
                                           child: InkWell(
                                         onTap: () {
                                           controller.setIntroductionIndex(2);
+                                          controller.cardAnimationController.forward(from: 0);
                                         },
                                         child: Container(
                                           alignment: Alignment.center,
@@ -261,6 +264,7 @@ class MainPage extends GetView<MainPageController> {
                               );
                             }),
                           ),
+
                           Obx(
                             () => ProsteIndexedStack(
                               index: controller.getIntroductionIndex(),
@@ -269,14 +273,17 @@ class MainPage extends GetView<MainPageController> {
                                     child: SejunIntroductionCard(
                                   title: 'Patience',
                                   content: '어려운 문제상황에서도\n포기하지않고 끝까지 해냅니다 ',
+                                      animationController: controller.cardAnimationController,
                                 )),
                                 IndexedStackChild(
                                     child: SejunIntroductionCard(
                                   title: 'Effort',
                                   content: '어제보다 더 나은 개발자가\n되기위해 꾸준히 노력합니다',
+                                      animationController: controller.cardAnimationController,
                                 )),
                                 IndexedStackChild(
                                     child: SejunIntroductionCard(
+                                      animationController: controller.cardAnimationController,
                                   title: 'Open minded',
                                   content:
                                       '늘 열린 마음으로 좋은것들을 받아들이고\n따끔한 충고나 조언에 감사합니다',
