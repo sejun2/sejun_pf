@@ -26,10 +26,10 @@ class MainPageController extends GetxController
   @override
   void onInit() {
     _contentScrollViewController.addListener(() {
-      Get.log(_contentScrollViewController.position.atEdge.toString());
-      if (_contentScrollViewController.position.atEdge &&
-          _contentScrollViewController.position.userScrollDirection ==
-              ScrollDirection.forward) {
+      Get.log(_contentScrollViewController.position.pixels.toString());
+      if (_contentScrollViewController.position.userScrollDirection ==
+              ScrollDirection.forward &&
+          _contentScrollViewController.position.pixels <= 0.0) {
         _isContentScrollViewTop.value = true;
       } else {
         _isContentScrollViewTop.value = false;

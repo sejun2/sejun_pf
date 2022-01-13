@@ -128,7 +128,7 @@ class MainPage extends GetView<MainPageController> {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 24),
+                      padding: EdgeInsets.symmetric(vertical: 24),
                       child: SejunBannerCard()),
                   Container(
                     decoration: BoxDecoration(
@@ -360,21 +360,9 @@ class MainPage extends GetView<MainPageController> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ClipOval(
-            child: Image.network(
-              'https://dummyimage.com/1200x400/000/fff',
-              width: 16,
-              height: 16,
-              fit: BoxFit.contain,
-            ),
-          ).marginOnly(right: 12),
-          Text(
-            'Sejun',
-            style: const TextStyle(color: Colors.black),
-          ),
+          Text('Sejun portfolio', style: GoogleFonts.caveat(letterSpacing: 36,fontSize: 40, color: Colors.black.withOpacity(0.7))),
         ],
       ),
-      actions: [],
     );
   }
 
