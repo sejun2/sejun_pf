@@ -147,16 +147,16 @@ class MainPage extends GetView<MainPageController> {
                         children: [
                           Align(
                             child: Text(
-                              '소개',
-                              style: GoogleFonts.ibmPlexSansKr(
-                                  fontSize: 66,
-                                  color: Colors.black,
+                              '저는 이런사람이에요.',
+                              style: GoogleFonts.nanumGothic(
+                                  fontSize: 40,
+                                  color: Colors.black87,
                                   fontWeight: FontWeight.bold),
                             ),
-                            alignment: Alignment.centerLeft,
+                            alignment: Alignment.centerRight,
                           ),
                           SizedBox(
-                            height: 60,
+                            height: 50,
                           ),
                           Container(
                             width: 450,
@@ -164,103 +164,102 @@ class MainPage extends GetView<MainPageController> {
                             decoration: ShapeDecoration(
                                 shape: StadiumBorder(),
                                 color: Colors.grey.withOpacity(0.1)),
-                            child: LayoutBuilder(
-                              builder: (context, constraints) {
-                                return Obx(
-                                  () => Stack(children: [
-                                    AnimatedContainer(
-                                      curve: Curves.fastOutSlowIn,
-                                      alignment: Alignment.center,
-                                      height: 40,
-                                      width: constraints.maxWidth / 3,
-                                      decoration: ShapeDecoration(
-                                          shape: StadiumBorder(),
-                                          color: Colors.indigoAccent),
-                                      duration: Duration(milliseconds: 300),
-                                      transform: Matrix4.translationValues(
-                                          (controller.getIntroductionIndex()) *
-                                              constraints.maxWidth/
-                                              3,
-                                          0,
-                                          0),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                            child: InkWell(
-                                          onTap: () {
-                                            controller.setIntroductionIndex(0);
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            height: 40,
-                                            child: Text(
-                                              'Patience',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  color: controller
-                                                              .getIntroductionIndex() ==
-                                                          0
-                                                      ? Colors.white
-                                                      : Colors.indigoAccent),
-                                            ),
-                                            decoration: ShapeDecoration(
-                                                shape: StadiumBorder(),
-                                                color: Colors.transparent),
+                            child:
+                                LayoutBuilder(builder: (context, constraints) {
+                              return Obx(
+                                () => Stack(children: [
+                                  AnimatedContainer(
+                                    curve: Curves.fastOutSlowIn,
+                                    alignment: Alignment.center,
+                                    height: 40,
+                                    width: constraints.maxWidth / 3,
+                                    decoration: ShapeDecoration(
+                                        shape: StadiumBorder(),
+                                        color: Colors.indigoAccent),
+                                    duration: Duration(milliseconds: 300),
+                                    transform: Matrix4.translationValues(
+                                        (controller.getIntroductionIndex()) *
+                                            constraints.maxWidth /
+                                            3,
+                                        0,
+                                        0),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: InkWell(
+                                        onTap: () {
+                                          controller.setIntroductionIndex(0);
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height: 40,
+                                          child: Text(
+                                            'Patience',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: controller
+                                                            .getIntroductionIndex() ==
+                                                        0
+                                                    ? Colors.white
+                                                    : Colors.indigoAccent),
                                           ),
-                                        )),
-                                        Expanded(
-                                            child: InkWell(
-                                          onTap: () {
-                                            controller.setIntroductionIndex(1);
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            height: 40,
-                                            child: Text(
-                                              'Effort',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  color: controller
-                                                              .getIntroductionIndex() ==
-                                                          1
-                                                      ? Colors.white
-                                                      : Colors.indigoAccent),
-                                            ),
-                                            decoration: ShapeDecoration(
-                                                shape: StadiumBorder(),
-                                                color: Colors.transparent),
+                                          decoration: ShapeDecoration(
+                                              shape: StadiumBorder(),
+                                              color: Colors.transparent),
+                                        ),
+                                      )),
+                                      Expanded(
+                                          child: InkWell(
+                                        onTap: () {
+                                          controller.setIntroductionIndex(1);
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height: 40,
+                                          child: Text(
+                                            'Effort',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: controller
+                                                            .getIntroductionIndex() ==
+                                                        1
+                                                    ? Colors.white
+                                                    : Colors.indigoAccent),
                                           ),
-                                        )),
-                                        Expanded(
-                                            child: InkWell(
-                                          onTap: () {
-                                            controller.setIntroductionIndex(2);
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            height: 40,
-                                            child: Text(
-                                              'Open Minded',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  color: controller
-                                                              .getIntroductionIndex() ==
-                                                          2
-                                                      ? Colors.white
-                                                      : Colors.indigoAccent),
-                                            ),
-                                            decoration: ShapeDecoration(
-                                                shape: StadiumBorder(),
-                                                color: Colors.transparent),
+                                          decoration: ShapeDecoration(
+                                              shape: StadiumBorder(),
+                                              color: Colors.transparent),
+                                        ),
+                                      )),
+                                      Expanded(
+                                          child: InkWell(
+                                        onTap: () {
+                                          controller.setIntroductionIndex(2);
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height: 40,
+                                          child: Text(
+                                            'Open Minded',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: controller
+                                                            .getIntroductionIndex() ==
+                                                        2
+                                                    ? Colors.white
+                                                    : Colors.indigoAccent),
                                           ),
-                                        )),
-                                      ],
-                                    ),
-                                  ]),
-                                );
-                              }
-                            ),
+                                          decoration: ShapeDecoration(
+                                              shape: StadiumBorder(),
+                                              color: Colors.transparent),
+                                        ),
+                                      )),
+                                    ],
+                                  ),
+                                ]),
+                              );
+                            }),
                           ),
                           Obx(
                             () => ProsteIndexedStack(
@@ -308,17 +307,17 @@ class MainPage extends GetView<MainPageController> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          '프로젝트',
-                          style: GoogleFonts.ibmPlexSansKr(
-                              fontSize: 66,
-                              color: Colors.black,
+                          '저의 프로젝트를 소개합니다',
+                          style: GoogleFonts.nanumGothic(
+                              fontSize: 40,
+                              color: Colors.black87,
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           width: constraints.maxWidth,
                           height: 600,
                           child: ListView(
-                            itemExtent: 600,
+                            itemExtent: 450,
                             padding: EdgeInsets.only(left: 40, right: 40),
                             scrollDirection: Axis.horizontal,
                             children: [
@@ -361,19 +360,17 @@ class MainPage extends GetView<MainPageController> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
-      title: LayoutBuilder(
-        builder: (context, constraints) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Sejun\'s portfolio',
-                  style: GoogleFonts.caveat(
-                      letterSpacing: 10,
-                      fontSize: 40,
-                      color: Colors.black.withOpacity(0.7))),
-            ],
-          );
-        }
+      title: Obx(
+          () =>  AnimatedOpacity(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.fastOutSlowIn,
+          opacity: controller.getAppBarOpacity(),
+          child: Text('Sejun\'s portfolio',
+              style: GoogleFonts.caveat(
+                  letterSpacing: 10,
+                  fontSize: 30,
+                  color: Colors.black.withOpacity(0.7))),
+        ),
       ),
     );
   }

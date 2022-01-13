@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sejun_portf/controllers/main_page_controller.dart';
 
 class SejunBannerCard extends StatefulWidget {
   const SejunBannerCard({Key? key}) : super(key: key);
@@ -13,7 +16,8 @@ class _SejunBannerCardState extends State<SejunBannerCard>
   late Animation _colorFilterAnimation;
 
   initAnimationResources() {
-    _colorFilterAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: 2800));
+    _colorFilterAnimationController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 2800));
     _colorFilterAnimation = ColorTween(begin: Colors.black12, end: Colors.white)
         .animate(CurvedAnimation(
       parent: _colorFilterAnimationController,
@@ -33,7 +37,6 @@ class _SejunBannerCardState extends State<SejunBannerCard>
 
   @override
   Widget build(BuildContext context) {
-
     _colorFilterAnimationController.forward();
 
     return Align(
@@ -112,8 +115,18 @@ class _SejunBannerCardState extends State<SejunBannerCard>
                             height: cardHeight,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                buildCard(centerCardSize, centerCardSize),
+                                buildCard(centerCardSize, centerCardSize,
+                                    widget: Obx(() => AnimatedOpacity(
+                                        opacity: Get.find<MainPageController>()
+                                            .getMainBannerTitleOpacity(),
+                                        child: Text('Sejun\'s\nportfolio',
+                                          style: GoogleFonts.caveat(
+                                              letterSpacing: 10,
+                                              fontSize: 20,
+                                              color: Colors.black.withOpacity(0.7))),
+                                        duration: Duration(milliseconds: 340)))),
                               ],
                             ),
                           ),
@@ -211,7 +224,7 @@ class _SejunBannerCardState extends State<SejunBannerCard>
         width: width,
         height: height,
         child: Container(
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             color: color ?? Colors.grey.withOpacity(0.1),
             boxShadow: [

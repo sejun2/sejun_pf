@@ -75,8 +75,8 @@ class _SejunProjectCardState extends State<SejunProjectCard>
                                 ],
                                 radius: _animationController.value,
                                 center: Alignment.bottomLeft)),
-                        height: 500,
-                        width: 500,
+                        height: 480,
+                        width: 400,
                       );
                     }),
                 Positioned(

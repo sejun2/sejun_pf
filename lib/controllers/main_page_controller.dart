@@ -20,8 +20,21 @@ class MainPageController extends GetxController
 
     _introductionIndex.value = index;
   }
-
   getIntroductionIndex() => _introductionIndex.value;
+
+  final _appBarTitleAlignment = Alignment.center.obs;
+  getAppBarTitleAlignment() => _appBarTitleAlignment.value;
+
+  final _appBarOpacity = 0.0.obs;
+  getAppBarOpacity() => _appBarOpacity.value;
+
+  getMainBannerTitleOpacity(){
+    if(getAppBarOpacity() == 1.0){
+      return 0.0;
+    }else{
+      return 1.0;
+    }
+  }
 
   @override
   void onInit() {
@@ -31,8 +44,10 @@ class MainPageController extends GetxController
               ScrollDirection.forward &&
           _contentScrollViewController.position.pixels <= 0.0) {
         _isContentScrollViewTop.value = true;
+        _appBarOpacity.value = 0.0;
       } else {
         _isContentScrollViewTop.value = false;
+        _appBarOpacity.value = 1.0;
       }
     });
     super.onInit();
