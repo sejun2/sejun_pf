@@ -127,8 +127,8 @@ class MainPage extends GetView<MainPageController> {
                   const EdgeInsets.only(left: 30, right: 30, top: 8, bottom: 8),
               child: Column(
                 children: [
-                  Padding(
-                      padding: EdgeInsets.symmetric(vertical: 44),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 24),
                       child: SejunBannerCard()),
                   Container(
                     decoration: BoxDecoration(
