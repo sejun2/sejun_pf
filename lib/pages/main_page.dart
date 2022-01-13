@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:proste_indexed_stack/proste_indexed_stack.dart';
 import 'package:sejun_portf/controllers/main_page_controller.dart';
+import 'package:sejun_portf/pages/card_1_page.dart';
+import 'package:sejun_portf/widgets/sejun_banner_card.dart';
 import 'package:sejun_portf/widgets/sejun_introduction_card.dart';
 import 'package:sejun_portf/widgets/sejun_proejct_card.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -125,6 +127,12 @@ class MainPage extends GetView<MainPageController> {
                   const EdgeInsets.only(left: 30, right: 30, top: 8, bottom: 8),
               child: Column(
                 children: [
+                  SingleChildScrollView(
+                    child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 44),
+                        child: SejunBannerCard()),
+                    scrollDirection: Axis.horizontal,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
@@ -314,12 +322,22 @@ class MainPage extends GetView<MainPageController> {
                             scrollDirection: Axis.horizontal,
                             children: [
                               SejunProjectCard(
+                                onSejunProjectCardTapped: () {
+                                  Get.to(() => Card1Page());
+                                },
                                 title: '당신의 쉐푸',
                               ),
                               SejunProjectCard(
+                                onSejunProjectCardTapped: () {
+                                  Get.to(() => Card1Page());
+                                },
                                 title: 'Flutter 외주 프로젝트',
                               ),
-                              SejunProjectCard(title: 'Tflite 프로젝트'),
+                              SejunProjectCard(
+                                  onSejunProjectCardTapped: () {
+                                    Get.to(() => Card1Page());
+                                  },
+                                  title: 'Tflite 프로젝트'),
                             ],
                           ),
                         ),
@@ -339,7 +357,7 @@ class MainPage extends GetView<MainPageController> {
   buildAppBar(BuildContext context) {
     return AppBar(
       toolbarHeight: _appBarHeight,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
       title: Row(

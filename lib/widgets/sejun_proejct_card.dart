@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
+typedef OnSejunProjectCardTapped = void Function();
+
 class SejunProjectCard extends StatefulWidget {
-  const SejunProjectCard({Key? key, required this.title}) : super(key: key);
+  const SejunProjectCard(
+      {Key? key, required this.title, required this.onSejunProjectCardTapped})
+      : super(key: key);
 
   final String title;
+  final OnSejunProjectCardTapped onSejunProjectCardTapped;
 
   @override
   _SejunProjectCardState createState() => _SejunProjectCardState();
@@ -50,7 +55,10 @@ class _SejunProjectCardState extends State<SejunProjectCard>
                 }
               });
             },
-            onTap: () {},
+            onTap: () {
+              print('onTapped!!');
+              widget.onSejunProjectCardTapped.call();
+            },
             child: Stack(
               children: [
                 AnimatedBuilder(
@@ -61,7 +69,10 @@ class _SejunProjectCardState extends State<SejunProjectCard>
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(24)),
                             gradient: RadialGradient(
-                                colors: const [Colors.indigoAccent, Colors.white],
+                                colors: const [
+                                  Colors.indigoAccent,
+                                  Colors.white
+                                ],
                                 radius: _animationController.value,
                                 center: Alignment.bottomLeft)),
                         height: 500,
