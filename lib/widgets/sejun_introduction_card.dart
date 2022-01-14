@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
 class SejunIntroductionCard extends StatefulWidget {
-  const SejunIntroductionCard({Key? key, required this.title, required this.content, required this.animationController})
+  SejunIntroductionCard(
+      {Key? key,
+      required this.title,
+      required this.content,
+      required this.animationController,
+      this.color})
       : super(key: key);
 
   final String title;
   final String content;
+  Color? color;
 
   final AnimationController animationController;
+
   @override
   _SejunIntroductionCardState createState() => _SejunIntroductionCardState();
 }
@@ -69,15 +76,31 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
                       Text(
                         widget.title,
                         style: TextStyle(
-                            fontSize: 66, fontWeight: FontWeight.bold),
+                            fontSize: 66,
+                            fontWeight: FontWeight.bold,
+                            color: widget.color ?? Colors.black,
+                            shadows: [
+                              Shadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                blurRadius: 10.0,
+                              )
+                            ]),
                       ),
-                      SizedBox(
-                        height: 80,
+                      VerticalDivider(
+                        indent: 40,
+                        endIndent: 40,
                       ),
                       Text(
                         widget.content,
                         style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.italic,
+                            shadows: [
+                              Shadow(
+                                  color: Colors.grey.withOpacity(0.4),
+                                  blurRadius: 10.0)
+                            ]),
                       ),
                     ],
                   ),

@@ -42,7 +42,7 @@ class MainPage extends GetView<MainPageController> {
         child: Column(
           children: [
             buildAppBar(context),
-            buildChips(context),
+            // buildChips(context),
             buildContent(context),
           ],
         ),
@@ -127,9 +127,9 @@ class MainPage extends GetView<MainPageController> {
                   const EdgeInsets.only(left: 30, right: 30, top: 8, bottom: 8),
               child: Column(
                 children: [
-                  Container(
-                      padding: EdgeInsets.symmetric(vertical: 24),
-                      child: SejunBannerCard()),
+                  buildBannerCard(),
+
+                  ///Introduction section
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
@@ -145,6 +145,7 @@ class MainPage extends GetView<MainPageController> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          ///Introduction title
                           Align(
                             child: Text(
                               '저는 이런사람이에요.',
@@ -155,19 +156,23 @@ class MainPage extends GetView<MainPageController> {
                             ),
                             alignment: Alignment.centerRight,
                           ),
-                          SizedBox(
-                            height: 50,
+                          const VerticalDivider(
+                            indent: 20,
+                            endIndent: 20,
                           ),
+
+                          ///Introduction Tab item background
                           Container(
                             width: 450,
                             height: 40,
                             decoration: ShapeDecoration(
-                                shape: StadiumBorder(),
+                                shape: const StadiumBorder(),
                                 color: Colors.grey.withOpacity(0.1)),
                             child:
                                 LayoutBuilder(builder: (context, constraints) {
                               return Obx(
                                 () => Stack(children: [
+                                  ///Introduction Tab item background animation container
                                   AnimatedContainer(
                                     curve: Curves.fastOutSlowIn,
                                     alignment: Alignment.center,
@@ -184,80 +189,42 @@ class MainPage extends GetView<MainPageController> {
                                         0,
                                         0),
                                   ),
+
+                                  ///Introduction Tab item
                                   Row(
                                     children: [
                                       Expanded(
                                           child: InkWell(
-                                        onTap: () {
-                                          controller.setIntroductionIndex(0);
-                                          controller.cardAnimationController.forward(from: 0);
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: 40,
-                                          child: Text(
-                                            'Patience',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                color: controller
-                                                            .getIntroductionIndex() ==
-                                                        0
-                                                    ? Colors.white
-                                                    : Colors.indigoAccent),
-                                          ),
-                                          decoration: ShapeDecoration(
-                                              shape: StadiumBorder(),
-                                              color: Colors.transparent),
-                                        ),
-                                      )),
+                                              onTap: () {
+                                                controller
+                                                    .setIntroductionIndex(0);
+                                                controller
+                                                    .cardAnimationController
+                                                    .forward(from: 0);
+                                              },
+                                              child: buildIntroductionTabItem(
+                                                  'Patience'))),
                                       Expanded(
                                           child: InkWell(
                                         onTap: () {
                                           controller.setIntroductionIndex(1);
-                                          controller.cardAnimationController.forward(from: 0);
+                                          controller.cardAnimationController
+                                              .forward(from: 0);
                                         },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: 40,
-                                          child: Text(
-                                            'Effort',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                color: controller
-                                                            .getIntroductionIndex() ==
-                                                        1
-                                                    ? Colors.white
-                                                    : Colors.indigoAccent),
-                                          ),
-                                          decoration: ShapeDecoration(
-                                              shape: StadiumBorder(),
-                                              color: Colors.transparent),
-                                        ),
+                                        child:
+                                            buildIntroductionTabItem("Effort"),
                                       )),
                                       Expanded(
                                           child: InkWell(
-                                        onTap: () {
-                                          controller.setIntroductionIndex(2);
-                                          controller.cardAnimationController.forward(from: 0);
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: 40,
-                                          child: Text(
-                                            'Open Minded',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                color: controller
-                                                            .getIntroductionIndex() ==
-                                                        2
-                                                    ? Colors.white
-                                                    : Colors.indigoAccent),
-                                          ),
-                                          decoration: ShapeDecoration(
-                                              shape: StadiumBorder(),
-                                              color: Colors.transparent),
-                                        ),
-                                      )),
+                                              onTap: () {
+                                                controller
+                                                    .setIntroductionIndex(2);
+                                                controller
+                                                    .cardAnimationController
+                                                    .forward(from: 0);
+                                              },
+                                              child: buildIntroductionTabItem(
+                                                  'Open minded'))),
                                     ],
                                   ),
                                 ]),
@@ -265,6 +232,7 @@ class MainPage extends GetView<MainPageController> {
                             }),
                           ),
 
+                          ///Introduction main contents
                           Obx(
                             () => ProsteIndexedStack(
                               index: controller.getIntroductionIndex(),
@@ -273,29 +241,37 @@ class MainPage extends GetView<MainPageController> {
                                     child: SejunIntroductionCard(
                                   title: 'Patience',
                                   content: '어려운 문제상황에서도\n포기하지않고 끝까지 해냅니다 ',
-                                      animationController: controller.cardAnimationController,
+                                  animationController:
+                                      controller.cardAnimationController,
+                                  color: Colors.cyan,
                                 )),
                                 IndexedStackChild(
                                     child: SejunIntroductionCard(
                                   title: 'Effort',
                                   content: '어제보다 더 나은 개발자가\n되기위해 꾸준히 노력합니다',
-                                      animationController: controller.cardAnimationController,
+                                  animationController:
+                                      controller.cardAnimationController,
+                                  color: Colors.purple,
                                 )),
                                 IndexedStackChild(
                                     child: SejunIntroductionCard(
-                                      animationController: controller.cardAnimationController,
+                                  animationController:
+                                      controller.cardAnimationController,
                                   title: 'Open minded',
                                   content:
                                       '늘 열린 마음으로 좋은것들을 받아들이고\n따끔한 충고나 조언에 감사합니다',
+                                  color: Colors.indigoAccent,
                                 )),
                               ],
                             ),
                           ),
                         ]),
                   ),
-                  const SizedBox(
-                    height: 150,
+                  VerticalDivider(
+                    indent: 150,
                   ),
+
+                  ///Project section
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
@@ -313,6 +289,7 @@ class MainPage extends GetView<MainPageController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        ///Project lists title
                         Text(
                           '저의 프로젝트를 소개합니다',
                           style: GoogleFonts.nanumGothic(
@@ -320,6 +297,8 @@ class MainPage extends GetView<MainPageController> {
                               color: Colors.black87,
                               fontWeight: FontWeight.bold),
                         ),
+
+                        ///Project lists
                         SizedBox(
                           width: constraints.maxWidth,
                           height: 600,
@@ -361,6 +340,29 @@ class MainPage extends GetView<MainPageController> {
     );
   }
 
+  Container buildIntroductionTabItem(String title) {
+    return Container(
+      alignment: Alignment.center,
+      height: 40,
+      child: Text(
+        title,
+        style: TextStyle(
+            fontWeight: FontWeight.w700,
+            color: controller.getIntroductionIndex() == 1
+                ? Colors.white
+                : Colors.indigoAccent),
+      ),
+      decoration: ShapeDecoration(
+          shape: const StadiumBorder(), color: Colors.transparent),
+    );
+  }
+
+  Container buildBannerCard() {
+    return Container(
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        child: const SejunBannerCard());
+  }
+
   buildAppBar(BuildContext context) {
     return AppBar(
       toolbarHeight: _appBarHeight,
@@ -368,7 +370,7 @@ class MainPage extends GetView<MainPageController> {
       elevation: 0,
       centerTitle: true,
       title: Obx(
-          () =>  AnimatedOpacity(
+        () => AnimatedOpacity(
           duration: Duration(milliseconds: 300),
           curve: Curves.fastOutSlowIn,
           opacity: controller.getAppBarOpacity(),
@@ -395,7 +397,7 @@ class MainPage extends GetView<MainPageController> {
               ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
             )
           : const SizedBox(
-              height: 2,
+              height: 6,
             ),
     );
   }
