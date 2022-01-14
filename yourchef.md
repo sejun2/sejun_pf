@@ -20,7 +20,10 @@
 
 ## 아키텍쳐
     Model - Repository - Usecase - ViewModel - View 의 CleanArchitecture 구성
-    Koin di, Coroutine 
+    Koin di, Coroutine, AAC
    <p>
    <img src="yourchef11.png"  width="300" height="800">
    <img src="yourchef22.png"  width="300" height="800"></p>
+
+## 맡은 부분
+    회원가입, 로그인, 납품업체 소개, 내정보 확인 및 변경 등을 작업했습니다. 
