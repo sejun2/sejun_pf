@@ -6,9 +6,10 @@ class SejunIntroductionCard extends StatefulWidget {
       required this.title,
       required this.content,
       required this.animationController,
-      this.color})
+      this.color, required this.imagePath})
       : super(key: key);
 
+  final String imagePath;
   final String title;
   final String content;
   Color? color;
@@ -66,8 +67,8 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
                 alignment: WrapAlignment.spaceEvenly,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Image.network(
-                    'https://storage.googleapis.com/cms-storage-bucket/a667e994fc2f3e85de36.png',
+                  Image.asset(
+                    widget.imagePath,
                     width: 600,
                     height: 600,
                   ),

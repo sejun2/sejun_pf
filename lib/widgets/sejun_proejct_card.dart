@@ -4,9 +4,9 @@ typedef OnSejunProjectCardTapped = void Function();
 
 class SejunProjectCard extends StatefulWidget {
   const SejunProjectCard(
-      {Key? key, required this.title, required this.onSejunProjectCardTapped})
+      {Key? key, required this.title, required this.onSejunProjectCardTapped, required this.imagePath})
       : super(key: key);
-
+  final String imagePath;
   final String title;
   final OnSejunProjectCardTapped onSejunProjectCardTapped;
 
@@ -69,8 +69,8 @@ class _SejunProjectCardState extends State<SejunProjectCard>
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(24)),
                             gradient: RadialGradient(
-                                colors: const [
-                                  Colors.indigoAccent,
+                                colors:  [
+                                  Colors.blueGrey.withOpacity(0.2),
                                   Colors.white
                                 ],
                                 radius: _animationController.value,
@@ -91,9 +91,9 @@ class _SejunProjectCardState extends State<SejunProjectCard>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                          child: Image.network(
-                              'https://dummyimage.com/600x400/000/fff',
+                          borderRadius: BorderRadius.all(Radius.circular(32)),
+                          child: Image.asset(
+                              widget.imagePath,
                               width: 350,
                               height: 200),
                         ),
@@ -102,7 +102,7 @@ class _SejunProjectCardState extends State<SejunProjectCard>
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
-                              fontSize: 46),
+                              fontSize: 36),
                         ),
                         Text(
                           'Read more   >',

@@ -17,16 +17,14 @@ class _SejunBannerCardState extends State<SejunBannerCard>
 
   initAnimationResources() {
     _colorFilterAnimationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2800));
+        vsync: this, duration: Duration(milliseconds: 4000));
     _colorFilterAnimation = ColorTween(begin: Colors.black12, end: Colors.white)
         .animate(CurvedAnimation(
       parent: _colorFilterAnimationController,
       curve: Curves.easeInOut,
+      reverseCurve: Curves.fastLinearToSlowEaseIn
     ));
 
-    _colorFilterAnimation.addListener(() {
-      print('Current color value :: ${_colorFilterAnimation.value}');
-    });
   }
 
   @override
@@ -122,11 +120,13 @@ class _SejunBannerCardState extends State<SejunBannerCard>
                                         opacity: Get.find<MainPageController>()
                                             .getMainBannerTitleOpacity(),
                                         child: Text('Sejun\'s\nportfolio',
-                                          style: GoogleFonts.caveat(
-                                              letterSpacing: 10,
-                                              fontSize: 20,
-                                              color: Colors.black.withOpacity(0.7))),
-                                        duration: Duration(milliseconds: 340)))),
+                                            style: GoogleFonts.caveat(
+                                                letterSpacing: 10,
+                                                fontSize: 20,
+                                                color: Colors.black
+                                                    .withOpacity(0.7))),
+                                        duration:
+                                            Duration(milliseconds: 340)))),
                               ],
                             ),
                           ),
@@ -183,19 +183,19 @@ class _SejunBannerCardState extends State<SejunBannerCard>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'This is title',
+                                  '',
                                   style: TextStyle(
-                                      fontSize: 45,
+                                      fontSize: 22,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  'This is subtitle',
+                                  '',
                                   style: TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  'This is content',
+                                  '',
                                   style: TextStyle(
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold),

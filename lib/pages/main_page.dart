@@ -124,17 +124,13 @@ class MainPage extends GetView<MainPageController> {
             child: SingleChildScrollView(
               controller: controller.getContentScrollViewController(),
               padding:
-                  const EdgeInsets.only(left: 30, right: 30, top: 8, bottom: 8),
+                  const EdgeInsets.only( top: 8, bottom: 8),
               child: Column(
                 children: [
                   buildBannerCard(),
-
                   ///Introduction section
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(44),
-                      ),
                       color: Colors.white,
                     ),
                     padding: EdgeInsets.symmetric(
@@ -148,13 +144,13 @@ class MainPage extends GetView<MainPageController> {
                           ///Introduction title
                           Align(
                             child: Text(
-                              '저는 이런사람이에요.',
+                              '소개 >',
                               style: GoogleFonts.nanumGothic(
-                                  fontSize: 40,
+                                  fontSize: 30,
                                   color: Colors.black87,
                                   fontWeight: FontWeight.bold),
                             ),
-                            alignment: Alignment.centerRight,
+                            alignment: Alignment.centerLeft,
                           ),
                           const VerticalDivider(
                             indent: 20,
@@ -203,7 +199,7 @@ class MainPage extends GetView<MainPageController> {
                                                     .forward(from: 0);
                                               },
                                               child: buildIntroductionTabItem(
-                                                  'Patience'))),
+                                                  'Patience', 0))),
                                       Expanded(
                                           child: InkWell(
                                         onTap: () {
@@ -212,7 +208,7 @@ class MainPage extends GetView<MainPageController> {
                                               .forward(from: 0);
                                         },
                                         child:
-                                            buildIntroductionTabItem("Effort"),
+                                            buildIntroductionTabItem("Effort", 1),
                                       )),
                                       Expanded(
                                           child: InkWell(
@@ -224,7 +220,7 @@ class MainPage extends GetView<MainPageController> {
                                                     .forward(from: 0);
                                               },
                                               child: buildIntroductionTabItem(
-                                                  'Open minded'))),
+                                                  'Open minded', 2))),
                                     ],
                                   ),
                                 ]),
@@ -239,33 +235,36 @@ class MainPage extends GetView<MainPageController> {
                               children: [
                                 IndexedStackChild(
                                     child: SejunIntroductionCard(
+                                      imagePath: 'image/patience.jpg',
                                   title: 'Patience',
                                   content: '어려운 문제상황에서도\n포기하지않고 끝까지 해냅니다 ',
-                                  animationController:
-                                      controller.cardAnimationController,
-                                  color: Colors.cyan,
-                                )),
-                                IndexedStackChild(
-                                    child: SejunIntroductionCard(
-                                  title: 'Effort',
-                                  content: '어제보다 더 나은 개발자가\n되기위해 꾸준히 노력합니다',
                                   animationController:
                                       controller.cardAnimationController,
                                   color: Colors.purple,
                                 )),
                                 IndexedStackChild(
                                     child: SejunIntroductionCard(
+                                      imagePath: 'image/effort.jpg',
+                                  title: 'Effort',
+                                  content: '어제보다 더 나은 개발자가\n되기위해 꾸준히 노력합니다',
+                                  animationController:
+                                      controller.cardAnimationController,
+                                  color: Colors.cyan,
+                                )),
+                                IndexedStackChild(
+                                    child: SejunIntroductionCard(
+                                      imagePath: 'image/openminded.jpg',
                                   animationController:
                                       controller.cardAnimationController,
                                   title: 'Open minded',
                                   content:
                                       '늘 열린 마음으로 좋은것들을 받아들이고\n따끔한 충고나 조언에 감사합니다',
-                                  color: Colors.indigoAccent,
+                                  color: Colors.green[300],
                                 )),
                               ],
                             ),
                           ),
-                        ]),
+                        VerticalDivider(indent: 30,)]),
                   ),
                   VerticalDivider(
                     indent: 150,
@@ -273,29 +272,21 @@ class MainPage extends GetView<MainPageController> {
 
                   ///Project section
                   Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(44),
-                      ),
-                      color: Colors.white,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 24,
-                    ),
-                    width: constraints.maxWidth,
-                    height: 800,
+                    padding: EdgeInsets.symmetric(vertical: 24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ///Project lists title
-                        Text(
-                          '저의 프로젝트를 소개합니다',
-                          style: GoogleFonts.nanumGothic(
-                              fontSize: 40,
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold),
+                        Padding(
+                          child: Text(
+                            '프로젝트 >',
+                            style: GoogleFonts.nanumGothic(
+                                fontSize: 30,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        padding: EdgeInsets.symmetric(horizontal: 24),
                         ),
 
                         ///Project lists
@@ -308,22 +299,28 @@ class MainPage extends GetView<MainPageController> {
                             scrollDirection: Axis.horizontal,
                             children: [
                               SejunProjectCard(
-                                onSejunProjectCardTapped: () {
-                                  Get.to(() => Card1Page());
+                                onSejunProjectCardTapped: () async{
+                                  if (await canLaunch('https://github.com/sejun2/sejun_pf/blob/develop/res/yourchef/yourchef.md')) {
+                                  await launch('https://github.com/sejun2/sejun_pf/blob/develop/res/yourchef/yourchef.md');
+                                  }
                                 },
-                                title: '당신의 쉐푸',
+                                title: '당신의 쉐푸 사이드 프로젝트 ',
+                                imagePath: 'image/yourchef_logo.png',
                               ),
                               SejunProjectCard(
                                 onSejunProjectCardTapped: () {
                                   Get.to(() => Card1Page());
                                 },
-                                title: 'Flutter 외주 프로젝트',
+                                title: 'Flutter 역사 교육 앱 프로젝트',
+                                imagePath: 'image/fieldtrip.png',
                               ),
                               SejunProjectCard(
                                   onSejunProjectCardTapped: () {
                                     Get.to(() => Card1Page());
                                   },
-                                  title: 'Tflite 프로젝트'),
+                                  title: 'Flutter 머신러닝 앱 프로젝트',
+                                imagePath: 'image/hs_logo.jpeg',
+                              ),
                             ],
                           ),
                         ),
@@ -340,7 +337,7 @@ class MainPage extends GetView<MainPageController> {
     );
   }
 
-  Container buildIntroductionTabItem(String title) {
+  Container buildIntroductionTabItem(String title, int index) {
     return Container(
       alignment: Alignment.center,
       height: 40,
@@ -348,7 +345,7 @@ class MainPage extends GetView<MainPageController> {
         title,
         style: TextStyle(
             fontWeight: FontWeight.w700,
-            color: controller.getIntroductionIndex() == 1
+            color: controller.getIntroductionIndex() == index
                 ? Colors.white
                 : Colors.indigoAccent),
       ),

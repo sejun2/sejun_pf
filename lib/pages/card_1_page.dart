@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 class Card1Page extends GetView {
@@ -10,24 +11,38 @@ class Card1Page extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(builder: (ctx, constraints) {
-        return Stack(children: [
-          SingleChildScrollView(
-            child: Column(
+        return SingleChildScrollView(
+          child: Column(children: [
+            Column(
               children: [
-                buildTop(constraints),
+                buildAppBar(constraints),
+                // buildTop(constraints),
                 Container(
                   height: 1500,
                   width: constraints.maxWidth,
                   color: Colors.red,
                 )
               ],
-            ),
-          )
-        ]);
+            )
+          ]),
+        );
       }),
     );
   }
-
+  
+  buildAppBar(BoxConstraints constraints){
+    return Container(
+      width: constraints.maxWidth,
+      height: kTextTabBarHeight,
+      color: Colors.transparent,
+      child: Row(
+        children: [
+          IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios_new, color: Colors.black,))
+        ],
+      ),
+    );
+  }
+  
   Padding buildTop(BoxConstraints constraints) {
     return Padding(
       padding: EdgeInsets.all(24),

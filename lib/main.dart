@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
       ),
       home: MainPage(),
-      defaultTransition: Transition.fadeIn,
+      defaultTransition: Transition.downToUp,
       scrollBehavior: SejunScrollBehavior()
     );
   }
