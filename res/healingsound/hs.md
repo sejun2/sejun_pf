@@ -1,5 +1,7 @@
 ## 개요
 
+![666](https://user-images.githubusercontent.com/33044667/149703439-4a47cfe0-a56b-4d99-a14c-25a6cdb0059f.gif)
+
 
 
 ```
@@ -13,7 +15,7 @@ Tensorflow lite 기반의 object detection 모델로 6.6.6운동을 하는 사�
 어플리케이션은 플러터 기반이지만 휴대폰 알림문제, 머신러닝 모델 문제로 안드로이드만 대응하기로 결정했고, 6.6.6운동을 담당하는 화면은
 안드로이드 native로 개발하였습니다.
 또한 국가과제 수행을 위한 프로젝트였고 기획, UI 도 부실했기때문에 기능에만 초점을 맞춰 개발하였습니다.
-```![yourchef1](https://user-images.githubusercontent.com/33044667/149703287-89dd6d55-b882-4793-a2b2-3a36aa66c174.png)
+```
 
 
 ## 개발환경
