@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class VerticalSpacer extends StatelessWidget {
-  const VerticalSpacer({Key? key, this.height}) : super(key: key);
+  const VerticalSpacer({Key? key, required this.height}) : super(key: key);
 
   final height;
 

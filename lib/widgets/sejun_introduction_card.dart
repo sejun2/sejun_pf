@@ -5,13 +5,13 @@ class SejunIntroductionCard extends StatefulWidget {
       {Key? key,
       required this.title,
       required this.content,
-      required this.animationController,
-      this.color, required this.imagePath})
-      : super(key: key);
+      required this.animationController, this.isSvg = false,
+      this.color, required this.imagePath});
 
   final String imagePath;
   final String title;
   final String content;
+  bool? isSvg;
   Color? color;
 
   final AnimationController animationController;
@@ -25,7 +25,7 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
   late Animation _opacityAnimation;
   late Animation _transformAnimation;
 
-  initAnimationResources() {
+  _initAnimationResources() {
     _opacityAnimation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
           parent: widget.animationController, curve: Curves.fastOutSlowIn),
@@ -36,15 +36,10 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   void initState() {
-    initAnimationResources();
+    _initAnimationResources();
     Future.delayed(
-        Duration(
+        const Duration(
           milliseconds: 100,
         ), () {
       print('forward...');
@@ -56,6 +51,7 @@ class _SejunIntroductionCardState extends State<SejunIntroductionCard>
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
+
       builder: (context, child) {
         return Opacity(
           opacity: _opacityAnimation.value,

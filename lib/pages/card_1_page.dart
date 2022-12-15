@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 class Card1Page extends GetView {
@@ -30,7 +29,7 @@ class Card1Page extends GetView {
     );
   }
   
-  buildAppBar(BoxConstraints constraints){
+  Container buildAppBar(BoxConstraints constraints){
     return Container(
       width: constraints.maxWidth,
       height: kTextTabBarHeight,
@@ -51,7 +50,7 @@ class Card1Page extends GetView {
           borderRadius: BorderRadius.all(Radius.circular(24)),
           child: Opacity(
             opacity: 0.85,
-            child: SizedBox(
+           child: SizedBox(
               width: constraints.maxWidth,
               height: _topWidgetHeight,
               child: Hero(

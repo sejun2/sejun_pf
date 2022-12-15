@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:proste_indexed_stack/proste_indexed_stack.dart';
 import 'package:sejun_portf/controllers/main_page_controller.dart';
-import 'package:sejun_portf/pages/card_1_page.dart';
 import 'package:sejun_portf/widgets/sejun_banner_card.dart';
 import 'package:sejun_portf/widgets/sejun_introduction_card.dart';
 import 'package:sejun_portf/widgets/sejun_proejct_card.dart';
@@ -14,20 +13,12 @@ import 'package:url_launcher/url_launcher.dart';
 import '../constant.dart';
 
 class MainPage extends GetView<MainPageController> {
-  MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   static const double _appBarHeight = 66.0;
 
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  StatelessElement createElement() {
-    return super.createElement();
-  }
-
   @override
   Widget build(BuildContext context) {
-    Get.put(MainPageController());
     return Scaffold(
       drawer: Container(width: 400,
         decoration: const BoxDecoration(
@@ -36,12 +27,11 @@ class MainPage extends GetView<MainPageController> {
         ),
         child: ListView(
           children: [
-            buildDrawerHeader(),
-
+            _buildDrawerHeader(),
           ],
         ),
       ),
-      appBar: buildAppBar(context),
+      appBar: _buildAppBar(context),
       floatingActionButton: FutureBuilder(
         future: buildFloatingActionButton(),
         builder: (ctx, snapshot) {
@@ -56,7 +46,6 @@ class MainPage extends GetView<MainPageController> {
       body: SafeArea(
         child: Column(
           children: [
-            // buildChips(context),
             buildContent(context),
           ],
         ),
@@ -75,7 +64,7 @@ class MainPage extends GetView<MainPageController> {
         children: [
           InkWell(
             onTap: () async {
-              await launchUrl('https://github.com/sejun2');
+              await _launchUrl('https://github.com/sejun2');
             },
             child: Image.asset(
               'image/github_64px.png',
@@ -102,12 +91,24 @@ class MainPage extends GetView<MainPageController> {
     );
   }
 
-  Future<void> launchUrl(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+  /// Launch url if the url is available.
+  /// If succeeded return true, else false.
+  Future<bool> _launchUrl(String url) async {
+    // Because recently canLaunch method always return false,  it is deleted until fix.
+    // This issue is commented to canLaunchUrl
+    // if (await canLaunchUrl(Uri.parse(url))) {
+    //   await launchUrl(url);
+    // }
+    try {
+      await launchUrl(Uri.parse(url));
+      return true;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
     }
   }
 
+  @Deprecated('It will be not used soon')
   buildChips(BuildContext context) {
     return Wrap(
       children: const [
@@ -119,28 +120,19 @@ class MainPage extends GetView<MainPageController> {
     return Expanded(
       child: LayoutBuilder(builder: (context, constraints) {
         return Stack(children: [
-          Container(
+          SizedBox(
             width: constraints.maxWidth,
-            child: SingleChildScrollView(
-              controller: controller.getContentScrollViewController(),
-              padding: const EdgeInsets.only(top: 8, bottom: 8),
-              child: Column(
-                children: [
-                  buildBannerCard(),
-
-                  ///Introduction section
-                  _buildIntroductionSection(constraints),
-                  const VerticalDivider(
-                    indent: 150,
-                  ),
-
-                  ///Project section
-                  _buildProjectSection(constraints),
-                ],
-              ),
+            child: PageView(
+              scrollDirection: Axis.vertical,
+              children: [
+                // TODO('Satoshi'): 약간이라도 성능 향상을 위해 widget 으로 분리시키는게 필요
+                _buildBannerCard(),
+                _buildIntroductionSection(constraints),
+                _buildProjectSection(constraints),
+              ],
             ),
           ),
-          buildGradientDivider(context),
+          _buildGradientDivider(context),
         ]);
       }),
     );
@@ -153,7 +145,6 @@ class MainPage extends GetView<MainPageController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-
           ///Project lists title
           Padding(
             child: Text(
@@ -177,7 +168,15 @@ class MainPage extends GetView<MainPageController> {
               children: [
                 SejunProjectCard(
                   onSejunProjectCardTapped: () async {
-                    launchUrl(
+                    _launchUrl(
+                        '#');
+                  },
+                  title: '(주)크립토 이더리움 Dapp',
+                  imagePath: 'image/yourchef_logo.png',
+                ),
+                SejunProjectCard(
+                  onSejunProjectCardTapped: () async {
+                    _launchUrl(
                         'https://github.com/sejun2/sejun_pf/blob/develop/res/yourchef/yourchef.md');
                   },
                   title: '당신의 쉐푸 사이드 프로젝트 ',
@@ -185,7 +184,7 @@ class MainPage extends GetView<MainPageController> {
                 ),
                 SejunProjectCard(
                   onSejunProjectCardTapped: () {
-                    launchUrl(
+                    _launchUrl(
                         'https://github.com/sejun2/fieldtrip_sejun/blob/develop/README.md');
                   },
                   title: 'Flutter 역사 교육 앱 프로젝트',
@@ -193,10 +192,17 @@ class MainPage extends GetView<MainPageController> {
                 ),
                 SejunProjectCard(
                   onSejunProjectCardTapped: () {
-                    launchUrl('https://github.com/sejun2/sejun_pf/blob/develop/res/healingsound/hs.md');
+                    _launchUrl('https://github.com/sejun2/sejun_pf/blob/develop/res/healingsound/hs.md');
                   },
                   title: 'Flutter 머신러닝 앱 프로젝트',
                   imagePath: 'image/hs_logo.jpeg',
+                ),
+                SejunProjectCard(
+                  onSejunProjectCardTapped: () {
+                    _launchUrl('#');
+                  },
+                  title: 'ZeroXFlow 영어 교육 Application',
+                  imagePath: 'image/1hour_logo_image.png',
                 ),
               ],
             ),
@@ -237,6 +243,7 @@ class MainPage extends GetView<MainPageController> {
             ),
 
             ///Introduction Tab item background
+            ///TODO('Satoshi'): widget 으로 분리하여 재사용성 높이기
             Container(
               width: 450,
               height: 40,
@@ -281,7 +288,7 @@ class MainPage extends GetView<MainPageController> {
                                           .cardAnimationController
                                           .forward(from: 0);
                                     },
-                                    child: buildIntroductionTabItem(
+                                    child: _buildIntroductionTabItem(
                                         'Patience', 0))),
                             Expanded(
                                 child: InkWell(
@@ -292,7 +299,7 @@ class MainPage extends GetView<MainPageController> {
                                         .cardAnimationController
                                         .forward(from: 0);
                                   },
-                                  child: buildIntroductionTabItem(
+                                  child: _buildIntroductionTabItem(
                                       "Effort", 1),
                                 )),
                             Expanded(
@@ -305,7 +312,7 @@ class MainPage extends GetView<MainPageController> {
                                           .cardAnimationController
                                           .forward(from: 0);
                                     },
-                                    child: buildIntroductionTabItem(
+                                    child: _buildIntroductionTabItem(
                                         'Open minded', 2))),
                           ],
                         ),
@@ -332,8 +339,7 @@ class MainPage extends GetView<MainPageController> {
               imagePath: 'image/patience.jpg',
               title: 'Patience',
               content: '어려운 문제상황에서도\n포기하지않고 끝까지 해냅니다 ',
-              animationController:
-              controller.cardAnimationController,
+              animationController: controller.cardAnimationController,
               color: Colors.purple,
             )),
         IndexedStackChild(
@@ -341,25 +347,22 @@ class MainPage extends GetView<MainPageController> {
               imagePath: 'image/effort.jpg',
               title: 'Effort',
               content: '어제보다 더 나은 개발자가\n되기위해 꾸준히 노력합니다',
-              animationController:
-              controller.cardAnimationController,
+              animationController: controller.cardAnimationController,
               color: Colors.cyan,
             )),
         IndexedStackChild(
             child: SejunIntroductionCard(
               imagePath: 'image/openminded.jpg',
-              animationController:
-              controller.cardAnimationController,
+              animationController: controller.cardAnimationController,
               title: 'Open minded',
-              content:
-              '늘 열린 마음으로 좋은것들을 받아들이고\n따끔한 충고나 조언에 감사합니다',
+              content: '늘 열린 마음으로 좋은것들을 받아들이고\n따끔한 충고나 조언에 감사합니다',
               color: Colors.green[300],
             )),
       ],
     );
   }
 
-  Container buildIntroductionTabItem(String title, int index) {
+  Container _buildIntroductionTabItem(String title, int index) {
     return Container(
       alignment: Alignment.center,
       height: 40,
@@ -376,13 +379,13 @@ class MainPage extends GetView<MainPageController> {
     );
   }
 
-  Container buildBannerCard() {
+  Container _buildBannerCard() {
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 24),
         child: const SejunBannerCard());
   }
 
-  buildAppBar(BuildContext context) {
+  AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       toolbarHeight: _appBarHeight,
       backgroundColor: Colors.transparent,
@@ -405,7 +408,7 @@ class MainPage extends GetView<MainPageController> {
     );
   }
 
-  buildGradientDivider(BuildContext context) {
+  Obx _buildGradientDivider(BuildContext context) {
     return Obx(
           () =>
       controller.getIsContentScrollViewTop() == false
@@ -424,7 +427,8 @@ class MainPage extends GetView<MainPageController> {
     );
   }
 
-  buildDrawerHeader() {
+  //TODO('Satoshi'): Header 좀 이쁘게 만들기
+  Container _buildDrawerHeader() {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [ Colors.grey.shade200, Colors.white], begin:Alignment.topCenter, end: Alignment.bottomCenter)
